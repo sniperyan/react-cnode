@@ -1,0 +1,87 @@
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as loadAction from 'js/actions/dataLoad';
+import * as userAction from 'js/actions/userInfo';
+import {Header,DataLoad,Footer} from 'js/components/common';
+import {Home} from 'js/components/user';
+import {Tool} from 'js/util/tool';
+class UserApp extends Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+    /**
+     * 页面初始化渲染完成之后执行加载数据
+     */
+    componentDidMount() {
+        const {actions, dispatch} = this.props;
+        var loginname = this.props.params.loginname;
+        actions.getUserInfo(loginname).then((success)=> {
+            if (success) {
+                //查询成功
+            } else {
+                //失败，暂时没考虑
+            }
+        });
+    }
+
+    /**
+     * 在组件接收到新的 props 的时候调用。在初始化渲染的时候，该方法不会调用。
+     * @param np
+     */
+    componentWillReceiveProps(np) {
+    }
+
+    /**
+     * 在接收到新的 props 或者 state，将要渲染之前调用。
+     * 该方法在初始化渲染的时候不会调用，在使用 forceUpdate 方法的时候也不会。
+     * @param nextProps
+     * @param nextState
+     * @returns {boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
+    /**
+     * 在组件从 DOM 中移除的时候立刻被调用。
+     */
+    componentWillUnmount() {
+    }
+
+
+    render() {
+        var {data, params, loadState, loadFailed, msg} = this.props;
+        var User = JSON.parse(Tool.localItem('User'));
+        User = User ? User : {};
+        var main = loadState || loadFailed ?
+            <DataLoad loadingData={loadState} loadFailed={loadFailed} msg={msg}></DataLoad> : <Home {...data} />;
+        var title = params.loginname == User.loginname ? '个人中心' : params.loginname + '的个人中心';
+        var footer = params.loginname == User.loginname ? <Footer index="3"/> : null;
+        var leftIcon = params.loginname == User.loginname ? null : 'fanhui';
+        var rightIcon = params.loginname == User.loginname ? 'tuichu' : null;
+        return (
+            <div>
+                <Header title={title} leftIcon={leftIcon} rightIcon={rightIcon} rightTo="/signout"/>
+                {main}
+                {footer}
+            </div>
+        );
+    }
+}
+const mapStateToProps = state => {
+    return {
+        data: state.user.userInfo,
+        loadState: state.load.loadState,
+        loadFailed: state.load.loadFailed,
+        msg: state.load.msg
+    }
+};
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(Object.assign({}, loadAction,userAction), dispatch),
+    dispatch: dispatch
+});
+export default connect(mapStateToProps, mapDispatchToProps)(UserApp);
+UserApp.contextTypes = {
+    router: React.PropTypes.object
+}

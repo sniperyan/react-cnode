@@ -1,0 +1,48 @@
+@import '../../../style/variables';
+/*nav*/
+.index-nav {
+  ul {
+    position: fixed;
+    display: flex;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    height: 38px;
+    background: @style-main;
+    li {
+      flex: 1;
+      & + li {
+        &::after {
+          position: absolute;
+          top: 10px;
+          bottom: 10px;
+          content: "";
+          border-left: 1px solid darken(@style-main, 10%);
+          border-right: 1px solid lighten(@style-main, 10%);
+        }
+      }
+      a {
+        display: block;
+        font-size: 14px;
+        text-align: center;
+        color: #fff;
+        height: 38px;
+        line-height: 38px;
+      }
+    }
+    .on {
+      a {
+        line-height: 30px;
+        height: 30px;
+        margin: 4px 5px;
+        border-radius: 8px;
+        background: darken(@style-main, 10%);
+      }
+    }
+  }
+  .height{
+    height: 38px;
+    background: @style-main;
+  }
+}
