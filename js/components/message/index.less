@@ -1,0 +1,45 @@
+@import '../../../style/variables';
+/*消息*/
+.msg-box {
+  .list {
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      .user{
+        flex-grow: 0;
+        flex-shrink:0;
+      }
+      .message-content{
+        flex-grow: 1;
+        flex-shrink:1;
+      }
+      a {
+        color: @style-main;
+      }
+      .name {
+        font-weight: bold;
+        line-height: 28px;
+        time {
+          padding-left: 5px;
+          font-size: 12px;
+          font-weight: normal;
+          color: #999;
+        }
+      }
+      .content {
+        padding: 5px 0;
+      }
+      .dian-true {
+        display: none;
+      }
+      .dian-false {
+        width: 8px;
+        height: 8px;
+        margin-right: 5px;
+        border-radius: 50%;
+        background: red;
+      }
+    }
+  }
+}

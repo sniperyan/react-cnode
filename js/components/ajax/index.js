@@ -31,11 +31,11 @@ export default function (dispatch, mySetting) {
         dispatch(loadAction.setload(false));
         if (ret.status === 200) {
             if (ret.data.success) {
-                //加载成功
+                //加载成功，没有异常
                 setting.success && setting.success(ret);
-                return true;
+                return ret;
             } else {
-                //异常
+                //请求成功，但是有异常
                 dispatch(loadAction.setloadMsg("系统繁忙，请稍后再试！"));
                 dispatch(loadAction.setloadFail(true));
                 return false;

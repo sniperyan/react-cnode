@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as loginAction from 'js/actions/login';
 import {Header} from 'js/components/common';
-import {Login} from 'js/components/login';
+import {LoginOut} from 'js/components/loginout';
 import {Tool} from 'js/util/tool';
-class LoginApp extends Component {
+class LoginOutApp extends Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -37,29 +36,15 @@ class LoginApp extends Component {
     componentWillUnmount() {
     }
 
-    handleLogin(accesstoken) {
-        const {actions} = this.props;
-        this.setState({ button: '登录中...' });
-        actions.login(accesstoken).then((success)=> {
-            if (success) {
-                //登录成功
-                this.context.router.push('/user/' + JSON.parse(Tool.localItem('User')).loginname);
-            } else {
-                //失败，按钮恢复为登录
-                this.setState({ button: '登录' });
-            }
-        });
-    }
-
-    //定义私有状态，按钮名称
-    state = {
-        button: '登录'
+    handleLoginout() {
+        Tool.removeLocalItem('User');
+        this.context.router.push('/');
     }
     render() {
         return (
             <div>
-                <Header title="登录" leftIcon="fanhui"/>
-                <Login btnName={this.state.button} loginClick={(accesstoken)=>this.handleLogin(accesstoken)}></Login>
+                <Header title="退出登录" leftIcon="fanhui"/>
+                <LoginOut loginOut={()=>this.handleLoginout()}></LoginOut>
             </div>
         );
     }
@@ -68,10 +53,9 @@ const mapStateToProps = state => {
     return {}
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({}, loginAction), dispatch),
     dispatch: dispatch
 });
-module.exports =  connect(mapStateToProps, mapDispatchToProps)(LoginApp);
-LoginApp.contextTypes = {
+module.exports = connect(mapStateToProps, mapDispatchToProps)(LoginOutApp);
+LoginOutApp.contextTypes = {
     router: React.PropTypes.object
 }

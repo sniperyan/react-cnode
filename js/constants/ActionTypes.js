@@ -1,5 +1,5 @@
 //action前缀
-export const ACTION_PREFIX = '';
+export const ACTION_PREFIX = 'https://cnodejs.org';
 //首页indexList
 export const SET_INDEXLIST = 'SET_INDEXLIST';
 export const CLEAR_INDEXLIST = 'CLEAR_INDEXLIST';
@@ -17,6 +17,8 @@ export const SET_CURRENTPAGE = 'SET_CURRENTPAGE';
 export const SET_SCROLL_POSITION = 'SET_SCROLL_POSITION';
 //查看用户信息
 export const SET_USERINFO = 'SET_USERINFO';
+//设置消息内容
+export const SET_MESSAGE = 'SET_MESSAGE';
 
 
 

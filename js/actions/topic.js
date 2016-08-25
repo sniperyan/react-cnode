@@ -9,14 +9,12 @@ export function getTopicDetail(id) {
     return function (dispatch, getState) {
         return ajax(dispatch,{
             method: 'get', //请求类型
-            type:'json',//返回值类型
-            timeout: 5000,//超时时间
             url: types.ACTION_PREFIX+'/api/v1/topic/' + id,
             success: function (ret) {
                 dispatch(setTopicDetail(ret.data.data));
             }, //请求成功后执行的方法
             error: function (error) {
-                alert(error.statusText);
+                alert(error.data.error_msg);
             } //请求失败后执行的方法
         });
     };
@@ -45,8 +43,6 @@ export function setClickZan(id,accesstoken,index,uid) {
     return function (dispatch, getState) {
         return ajax(dispatch,{
             method: 'post', //请求类型
-            type:'json',//返回值类型
-            timeout: 5000,//超时时间
             url: types.ACTION_PREFIX+'/api/v1/reply/'+id+'/ups',
             needLoad:false,//不要加载动画
             data:{"accesstoken":accesstoken},
@@ -58,7 +54,7 @@ export function setClickZan(id,accesstoken,index,uid) {
                 }));
             }, //请求成功后执行的方法
             error: function (error) {
-                alert(error.statusText);
+                alert(error.data.error_msg);
             } //请求失败后执行的方法
         });
     };
@@ -76,8 +72,6 @@ export function submitReply(data) {
     return function (dispatch, getState) {
         return ajax(dispatch,{
             method: 'post', //请求类型
-            type:'json',//返回值类型
-            timeout: 5000,//超时时间
             url: types.ACTION_PREFIX+'/api/v1/topic/'+data.id+'/replies',
             data:{"accesstoken":data.accesstoken,"reply_id ":data.reply_id ,"content":data.content},
             needLoad:false,//不要加载动画
@@ -85,7 +79,25 @@ export function submitReply(data) {
                 alert("回复成功");
             }, //请求成功后执行的方法
             error: function (error) {
-                alert(error.statusText);
+                alert(error.data.error_msg);
+            } //请求失败后执行的方法
+        });
+    };
+}
+/**
+ * 添加主题
+ */
+export function createTopic(data) {
+    return function (dispatch, getState) {
+        return ajax(dispatch,{
+            method: 'post', //请求类型
+            url: types.ACTION_PREFIX+'/api/v1/topics',
+            data:data,
+            needLoad:false,//不要加载动画
+            success: function (ret) {
+            }, //请求成功后执行的方法
+            error: function (error) {
+                alert(error.data.error_msg);
             } //请求失败后执行的方法
         });
     };

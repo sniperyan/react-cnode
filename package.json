@@ -1,20 +1,19 @@
 {
-  "name": "demo",
+  "name": "react-cnode",
   "version": "1.0.0",
-  "description": "",
+  "description": "react",
   "main": "",
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack-dev-server --config ./webpack.dev.config --hot --content-base assets/ --output-public-path static/ --progress --colors --inline --history-api-fallback ",
-    "prod": "webpack --config ./webpack.prod.config"
+    "dev": "webpack-dev-server --config ./webpack.config --hot --progress --colors --inline --history-api-fallback ",
+    "prod": "webpack -p --config ./webpack.config"
   },
-  "author": "",
+  "author": "sniperyan",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.12.0",
     "babel-polyfill": "^6.13.0",
     "normalize.css": "^4.2.0",
-    "qrcode.react": "^0.6.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",

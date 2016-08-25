@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as topicAction from 'js/actions/topic';
-import * as loadAction from 'js/actions/dataLoad';
 import {DataLoad, Header} from 'js/components/common';
 import {Article} from 'js/components/topic';
 import {Tool} from 'js/util/tool';
@@ -171,10 +170,10 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({}, topicAction, loadAction), dispatch),
+    actions: bindActionCreators(Object.assign({}, topicAction), dispatch),
     dispatch: dispatch
 });
-export default connect(mapStateToProps, mapDispatchToProps)(TopicApp);
+module.exports =  connect(mapStateToProps, mapDispatchToProps)(TopicApp);
 TopicApp.contextTypes = {
     router: React.PropTypes.object
 }

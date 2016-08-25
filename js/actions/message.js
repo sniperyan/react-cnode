@@ -2,17 +2,19 @@ import * as types from 'js/constants/ActionTypes';
 import ajax from 'js/components/ajax'
 
 /**
- * 获取用户信息
- * @param loginname 用户名
+ * 设置消息集合
+ * @param accesstoken
  * @returns {Function}
  */
-export function getUserInfo(loginname) {
+export function getUserInfo(accesstoken) {
     return function (dispatch, getState) {
         return ajax(dispatch,{
             method: 'get', //请求类型
-            url: types.ACTION_PREFIX+'/api/v1/user/' + loginname,
+            url: types.ACTION_PREFIX+'/api/v1/messages?accesstoken=' + accesstoken,
             success: function (ret) {
-                dispatch(setUserInfo(ret.data.data));
+                //把已读消息和未读消息合并
+                let messageList = ret.data.data.has_read_messages.concat(ret.data.data.hasnot_read_messages);
+                dispatch(setUserInfo(messageList));
             }, //请求成功后执行的方法
             error: function (error) {
                 alert(error.data.error_msg);
@@ -22,7 +24,7 @@ export function getUserInfo(loginname) {
 }
 export function setUserInfo(data) {
     return {
-        type: types.SET_USERINFO,
+        type: types.SET_MESSAGE,
         data
     };
 }

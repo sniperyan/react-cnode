@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as userAction from 'js/actions/userInfo';
-import {Header,DataLoad,Footer} from 'js/components/common';
-import {Home} from 'js/components/user';
+import * as messageAction from 'js/actions/message';
+import {Header,DataLoad,Footer,TipMsgSignin} from 'js/components/common';
+import {Message} from 'js/components/message';
 import {Tool} from 'js/util/tool';
-class UserApp extends Component {
+class MessageApp extends Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -14,8 +14,8 @@ class UserApp extends Component {
      */
     componentDidMount() {
         const {actions, dispatch} = this.props;
-        var loginname = this.props.params.loginname;
-        actions.getUserInfo(loginname).then((success)=> {
+        var User = JSON.parse(Tool.localItem('User'));
+        actions.getUserInfo(User.accesstoken).then((success)=> {
             if (success) {
                 //查询成功
             } else {
@@ -50,37 +50,39 @@ class UserApp extends Component {
 
 
     render() {
-        var {data, params, loadState, loadFailed, msg} = this.props;
+        var {data, loadState, loadFailed,msg} = this.props;
         var User = JSON.parse(Tool.localItem('User'));
-        User = User ? User : {};
-        var main = loadState || loadFailed ?
-            <DataLoad loadingData={loadState} loadFailed={loadFailed} msg={msg}></DataLoad> : <Home {...data} />;
-        var title = params.loginname == User.loginname ? '个人中心' : params.loginname + '的个人中心';
-        var footer = params.loginname == User.loginname ? <Footer index="3"/> : null;
-        var leftIcon = params.loginname == User.loginname ? null : 'fanhui';
-        var rightIcon = params.loginname == User.loginname ? 'tuichu' : null;
+        var main = null;
+        if (!User) {
+            main = <TipMsgSignin />
+        } else if (!data) {
+            main = <DataLoad loadingData={loadState} loadFailed={loadFailed} msg={msg}></DataLoad>
+        } else {
+            main = <Message list={data} />;
+        }
+
         return (
             <div>
-                <Header title={title} leftIcon={leftIcon} rightIcon={rightIcon} rightTo="/loginout"/>
+                <Header title="消息" />
                 {main}
-                {footer}
+                <Footer index="2" />
             </div>
         );
     }
 }
 const mapStateToProps = state => {
     return {
-        data: state.user.userInfo,
+        data: state.messages.messages,
         loadState: state.load.loadState,
         loadFailed: state.load.loadFailed,
         msg: state.load.msg
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},userAction), dispatch),
+    actions: bindActionCreators(Object.assign({},messageAction), dispatch),
     dispatch: dispatch
 });
-module.exports =  connect(mapStateToProps, mapDispatchToProps)(UserApp);
-UserApp.contextTypes = {
+module.exports =  connect(mapStateToProps, mapDispatchToProps)(MessageApp);
+MessageApp.contextTypes = {
     router: React.PropTypes.object
 }

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as listAction from 'js/actions/indexList';
-import * as loadAction from 'js/actions/dataLoad';
 import * as pageAction from 'js/actions/pagination';
 import {Nav} from 'js/components/indexList/nav';
 import {DataLoad,Footer} from 'js/components/common';
@@ -149,10 +148,10 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({}, listAction, loadAction, pageAction), dispatch),
+    actions: bindActionCreators(Object.assign({}, listAction, pageAction), dispatch),
     dispatch: dispatch
 });
-export default connect(mapStateToProps, mapDispatchToProps)(ListApp);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ListApp);
 ListApp.contextTypes = {
     router: React.PropTypes.object
 }
