@@ -15,13 +15,18 @@ class MessageApp extends Component {
     componentDidMount() {
         const {actions, dispatch} = this.props;
         var User = JSON.parse(Tool.localItem('User'));
-        actions.getUserInfo(User.accesstoken).then((success)=> {
-            if (success) {
-                //查询成功
-            } else {
-                //失败，暂时没考虑
-            }
-        });
+        if(!User){
+
+        }else {
+            actions.getUserInfo(User.accesstoken).then((success)=> {
+                if (success) {
+                    //查询成功
+                } else {
+                    //失败，暂时没考虑
+                }
+            });
+        }
+
     }
 
     /**
