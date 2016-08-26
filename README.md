@@ -1,10 +1,10 @@
-# react-cnode-v2
-cnode社区版第二版本
+# react-cnode
+cnode社区版
 基于webpack + react + react-router + redux 的React版cnode社区
 ### 下载
 ```
-  git clone https://github.com/sniperyan/react-cnode-v2.git
-  react-cnode-v2
+  git clone https://github.com/sniperyan/react-cnode.git
+  react-cnode
   npm install (安装依赖模块)
   npm install webpack -g (没有安装webpack的需要安装)
 ```
@@ -27,7 +27,7 @@ cnode社区版第二版本
 ```
 这个版本做了按需加载，另外稍微变化了点目录结构，结构更加清晰
 1.不做按需加载的route 后面是component，做按需加载，后面是getComponent，
-然后是webpack底层的require函数，该函数不能封装，必须这么写
+webpack底层的require函数，该函数不能封装，必须这么写
 2.不做按需加载的container层最后是es6导出语法，export default...，做了按需加载之后，
 container最后的导出变为类似于 module.exports = connect(mapStateToProps, mapDispatchToProps)(ListApp)，
 如果还写es6那种导出方法，页面不会报错，加载完成后将不会渲染！！
@@ -37,7 +37,7 @@ container最后的导出变为类似于 module.exports = connect(mapStateToProps
 1.通过按需加载，webpack的UglifyJsPlugin插件对代码进行压缩做了首屏优化
 2.使用flex布局，非常爽
 3.es6箭头函数，解构赋值开发起来速度飞快
-4.我的ajax用的是axios控件，每次做ajax都会触发加载状态的变化，我对axios又做了一层封装，这样我可以专注于业务开发，
+4.ajax用的是axios控件，每次做ajax都会触发加载状态的变化，我对axios又做了一层封装，这样我可以专注于业务开发，
 代码更优雅
 ```
 ### 未完成部分
