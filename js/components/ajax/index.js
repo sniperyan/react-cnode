@@ -13,7 +13,7 @@ export default function (dispatch, mySetting) {
         type: 'json',//返回值类型
         timeout: 5000,//超时时间
         url: '', //请求地址
-        needLoad:true,//是否需要加载动画，默认为true
+        needLoad: true,//是否需要加载动画，默认为true
         data: null, //发送给服务器的数据
         success: null, //请求成功后执行的方法
         error: null //请求失败后执行的方法
@@ -27,7 +27,15 @@ export default function (dispatch, mySetting) {
     //设置加载状态，隐藏错误信息
     dispatch(loadAction.setloadFail(false));
     setting.needLoad && dispatch(loadAction.setload(true));
-    return myaxios(dispatch, setting).then((ret) => {
+    return (function (dispatch, setting) {
+        return axios({
+            method: setting.method,
+            responseType: setting.type,
+            timeout: setting.timeout,
+            data: setting.data,
+            url: setting.url
+        });
+    })(dispatch, setting).then((ret) => {
         dispatch(loadAction.setload(false));
         if (ret.status === 200) {
             if (ret.data.success) {
@@ -53,14 +61,5 @@ export default function (dispatch, mySetting) {
         dispatch(loadAction.setloadFail(true));
         dispatch(loadAction.setload(false));
         return false;
-    });
-}
-function myaxios(dispatch, setting) {
-    return axios({
-        method: setting.method,
-        responseType: setting.type,
-        timeout: setting.timeout,
-        data: setting.data,
-        url: setting.url
     });
 }

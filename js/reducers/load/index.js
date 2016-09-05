@@ -5,20 +5,17 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case types.SET_DATALOAD:
             return Object.assign({}, state, {
-                loadState: action.data,
-                loadFailed: state.loadFailed,
-                msg: state.msg
+                ...state,
+                loadState: action.data
             });
         case types.SET_LOADFAIL:
             return Object.assign({}, state, {
-                loadState: state.loadState,
-                loadFailed: action.data,
-                msg: state.msg
+                ...state,
+                loadFailed: action.data
             });
         case types.SET_LOADMSG:
             return Object.assign({}, state, {
-                loadState: state.loadState,
-                loadFailed: state.loadFailed,
+                ...state,
                 msg: action.data
             });
         default:

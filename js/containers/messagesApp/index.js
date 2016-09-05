@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as messageAction from 'js/actions/message';
+import * as listAction from 'js/actions/indexList';
+import * as pageAction from 'js/actions/pagination';
 import {Header,DataLoad,Footer,TipMsgSignin} from 'js/components/common';
 import {Message} from 'js/components/message';
 import {Tool} from 'js/util/tool';
@@ -26,6 +28,8 @@ class MessageApp extends Component {
                 }
             });
         }
+        dispatch(actions.clearIndexList());
+        dispatch(actions.setCurrPage(0));
 
     }
 
@@ -84,7 +88,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},messageAction), dispatch),
+    actions: bindActionCreators(Object.assign({},messageAction,listAction,pageAction), dispatch),
     dispatch: dispatch
 });
 module.exports =  connect(mapStateToProps, mapDispatchToProps)(MessageApp);

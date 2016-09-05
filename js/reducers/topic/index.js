@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
          * 不直接修改 state 中的字段，而是返回新对象
          */
         case types.SET_REPLYBOX_DISPLAY:
-            return {
+            return Object.assign({}, state, {
                 topicDetail:{
                     ...state.topicDetail,
                     replies: state.topicDetail.replies.map((reply, index)=> {
@@ -24,9 +24,10 @@ export default function (state = initialState, action) {
                         return reply;
                     })
                 }
-            }
+            });
+
         case types.SET_ZAN:
-            var newState = {
+            return Object.assign({}, state, {
                 topicDetail:{
                     ...state.topicDetail,
                     replies: state.topicDetail.replies.map((reply, index)=> {
@@ -51,8 +52,7 @@ export default function (state = initialState, action) {
                         return reply;
                     })
                 }
-            }
-            return newState;
+            });
         default:
             return state;
     }

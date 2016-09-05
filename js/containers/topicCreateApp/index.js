@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as topicAction from 'js/actions/topic';
+import * as listAction from 'js/actions/indexList';
+import * as pageAction from 'js/actions/pagination';
 import {Header, Footer, TipMsgSignin} from 'js/components/common';
 import {NewTopic} from 'js/components/topicCreate';
 import {Tool} from 'js/util/tool';
@@ -14,6 +16,9 @@ class TopicCreateApp extends Component {
      * 页面初始化渲染完成之后执行加载数据
      */
     componentDidMount() {
+        const {actions,dispatch} = this.props;
+        dispatch(actions.clearIndexList());
+        dispatch(actions.setCurrPage(0));
     }
     state = {
         title: '',
@@ -124,7 +129,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},topicAction ), dispatch),
+    actions: bindActionCreators(Object.assign({},topicAction ,listAction,pageAction), dispatch),
     dispatch: dispatch
 });
 module.exports = connect(mapStateToProps, mapDispatchToProps)(TopicCreateApp);

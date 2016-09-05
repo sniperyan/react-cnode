@@ -36,12 +36,11 @@ container最后的导出变为类似于 module.exports = connect(mapStateToProps
 ```
 1.通过按需加载，webpack的UglifyJsPlugin插件对代码进行压缩做了首屏优化
 2.使用flex布局，非常爽
-3.es6箭头函数，解构赋值开发起来速度飞快
+3.es6箭头函数，解构赋值，数组展开，es7对象展开等新语法开发起来速度飞快
 4.ajax用的是axios控件，每次做ajax都会触发加载状态的变化，我对axios又做了一层封装，这样我可以专注于业务开发，
 代码更优雅
 ```
 ### 未完成部分
 ```
-1.components/common/confirmBox里封装了一个确认取消提示框，添加了css3动画，后面继续封装一些常用的UI组件
-2.浏览器端性能看不出来，后面打包到坑爹的安卓上去试试，做下性能调优
+1.出native版本
 ```

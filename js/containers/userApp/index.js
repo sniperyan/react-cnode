@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userAction from 'js/actions/userInfo';
+import * as listAction from 'js/actions/indexList';
+import * as pageAction from 'js/actions/pagination';
 import {Header,DataLoad,Footer} from 'js/components/common';
 import {Home} from 'js/components/user';
 import {Tool} from 'js/util/tool';
@@ -22,6 +24,8 @@ class UserApp extends Component {
                 //失败，暂时没考虑
             }
         });
+        dispatch(actions.clearIndexList());
+        dispatch(actions.setCurrPage(0));
     }
 
     /**
@@ -77,7 +81,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},userAction), dispatch),
+    actions: bindActionCreators(Object.assign({},userAction,listAction,pageAction), dispatch),
     dispatch: dispatch
 });
 module.exports =  connect(mapStateToProps, mapDispatchToProps)(UserApp);

@@ -6,17 +6,14 @@ export default function (state = initialState, action) {
         case types.SET_CURRENTPAGE:
             return Object.assign({}, state, {
                 pagination: {
-                    page: action.data,
-                    limit: state.pagination.limit,
-                    scrollX:state.pagination.scrollX,
-                    scrollY:state.pagination.scrollY
+                    ...state.pagination,
+                    page: action.data
                 }
             });
         case types.SET_SCROLL_POSITION:
             return Object.assign({}, state, {
                 pagination: {
-                    page: state.pagination.page,
-                    limit: state.pagination.limit,
+                    ...state.pagination,
                     scrollX:action.data.scrollX,
                     scrollY:action.data.scrollY
                 }
