@@ -40,6 +40,8 @@ container最后的导出变为类似于 module.exports = connect(mapStateToProps
 4.ajax用的是axios控件，每次做ajax都会触发加载状态的变化，我对axios又做了一层封装，这样我可以专注于业务开发，
 代码更优雅
 ```
+### 已打包安卓版本 cnode.apk
+我不会安卓代码，只给app签了个名,纯练手用，安卓打包比苹果复杂，环境不好配置
 ### 未完成部分
 ```
 1.出native版本
