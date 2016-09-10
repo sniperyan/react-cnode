@@ -28,8 +28,8 @@ cnode社区版
 这个版本做了按需加载，另外稍微变化了点目录结构，结构更加清晰
 1.不做按需加载的route 后面是component，做按需加载，后面是getComponent，
 webpack底层的require函数，该函数不能封装，必须这么写
-2.不做按需加载的container层最后是es6导出语法，export default...，做了按需加载之后，
-container最后的导出变为类似于 module.exports = connect(mapStateToProps, mapDispatchToProps)(ListApp)，
+2.不做按需加载的container层最后推荐es6导出语法，export default...，做了按需加载之后，
+container最后的导出语法必须为ES5 module.exports = connect(mapStateToProps, mapDispatchToProps)(ListApp)，
 如果还写es6那种导出方法，页面不会报错，加载完成后将不会渲染！！
 ```
 ### 总结
@@ -44,5 +44,5 @@ container最后的导出变为类似于 module.exports = connect(mapStateToProps
 我不会安卓代码，只给app签了个名,纯练手用，安卓打包比苹果复杂，环境不好配置
 ### 未完成部分
 ```
-1.出native版本
+1.react native版本
 ```
