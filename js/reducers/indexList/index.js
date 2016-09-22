@@ -14,6 +14,10 @@ export default function (state = initialState, action) {
             return Object.assign({}, state, {
                 indexList: []
             });
+        case types.TEST_ACTION:
+            console.log("run in indexList reducer when action is TEST_ACTION for a single dispatched action");
+            return state;
+            
         default:
             return state;
     }

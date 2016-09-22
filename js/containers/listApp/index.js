@@ -123,6 +123,11 @@ class ListApp extends Component {
         }));
         window.removeEventListener('scroll', this.handleScroll);
     }
+    // test reducer run how many times for a single dispatched action
+    testFunc(){
+        const {actions, dispatch} = this.props;
+        dispatch(actions.testFunc());
+    }
 
     render() {
         let tab = this.props.location.query.tab || 'all';
@@ -130,6 +135,7 @@ class ListApp extends Component {
         return (
             <div>
                 <Nav tab={tab}></Nav>
+                <input type="button" value="testBtn" onClick={()=>this.testFunc()}/>
                 <List list={list}></List>
                 <DataLoad loadingData={loadState} loadFailed={loadFailed} msg={msg}></DataLoad>
                 <Footer index="0" />
