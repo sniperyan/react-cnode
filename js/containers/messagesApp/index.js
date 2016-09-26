@@ -15,7 +15,7 @@ class MessageApp extends Component {
      * 页面初始化渲染完成之后执行加载数据
      */
     componentDidMount() {
-        const {actions, dispatch} = this.props;
+        const {actions} = this.props;
         var User = JSON.parse(Tool.localItem('User'));
         if(!User){
 
@@ -28,8 +28,8 @@ class MessageApp extends Component {
                 }
             });
         }
-        dispatch(actions.clearIndexList());
-        dispatch(actions.setCurrPage(0));
+        actions.clearIndexList();
+        actions.setCurrPage(0);
 
     }
 
@@ -88,8 +88,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},messageAction,listAction,pageAction), dispatch),
-    dispatch: dispatch
+    actions: bindActionCreators(Object.assign({},messageAction,listAction,pageAction), dispatch)
 });
 module.exports =  connect(mapStateToProps, mapDispatchToProps)(MessageApp);
 MessageApp.contextTypes = {

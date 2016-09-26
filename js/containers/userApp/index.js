@@ -15,7 +15,7 @@ class UserApp extends Component {
      * 页面初始化渲染完成之后执行加载数据
      */
     componentDidMount() {
-        const {actions, dispatch} = this.props;
+        const {actions} = this.props;
         var loginname = this.props.params.loginname;
         actions.getUserInfo(loginname).then((success)=> {
             if (success) {
@@ -24,8 +24,8 @@ class UserApp extends Component {
                 //失败，暂时没考虑
             }
         });
-        dispatch(actions.clearIndexList());
-        dispatch(actions.setCurrPage(0));
+        actions.clearIndexList();
+        actions.setCurrPage(0);
     }
 
     /**
@@ -81,8 +81,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},userAction,listAction,pageAction), dispatch),
-    dispatch: dispatch
+    actions: bindActionCreators(Object.assign({},userAction,listAction,pageAction), dispatch)
 });
 module.exports =  connect(mapStateToProps, mapDispatchToProps)(UserApp);
 UserApp.contextTypes = {

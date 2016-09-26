@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as listAction from 'js/actions/indexList';
 import * as pageAction from 'js/actions/pagination';
 import {Nav} from 'js/components/indexList/nav';
-import {DataLoad,Footer} from 'js/components/common';
+import {DataLoad, Footer} from 'js/components/common';
 import {List} from 'js/components/indexList';
 import {Tool} from 'js/util/tool';
 class ListApp extends Component {
@@ -13,6 +13,7 @@ class ListApp extends Component {
         this.initPath(props);
         this.handleScroll = this.handleScroll.bind(this);
     }
+
     /**
      * 初始化路径，用于tab改变的时候作比较刷新页面
      * @param props
@@ -22,17 +23,19 @@ class ListApp extends Component {
         var {pathname, search} = location;
         this.path = pathname + search;
     }
+
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
         const {pagination} = this.props;
         if (pagination.page === 0) {
             //只有当前页为0的时候才触发加载数据
             this.loadData();
-        }else {
+        } else {
             //是从别的页面返回到列表页的，需要恢复原来滚动条的位置
-            window.scrollTo(pagination.scrollX,pagination.scrollY);
+            window.scrollTo(pagination.scrollX, pagination.scrollY);
         }
     }
+
     /**
      * 处理页面滚动加载的方法
      */
@@ -45,6 +48,7 @@ class ListApp extends Component {
             }
         }
     }
+
     /**
      * 用于加载数据，如果不传np参数，则默认加载当前页的props里的tab参数
      * 如果传递np，则加载np里的tab参数
@@ -52,7 +56,7 @@ class ListApp extends Component {
      * @param [page]  指定加载某一页数据
      */
     loadData(np, page) {
-        const {actions, dispatch, pagination} = this.props;
+        const {actions, pagination} = this.props;
         let tab = '';
         if (!np) {
             tab = this.props.location.query.tab || 'all';
@@ -69,7 +73,7 @@ class ListApp extends Component {
         actions.getIndexList(loadPage, pagination.limit, tab).then((success)=> {
             if (success) {
                 //查询成功
-                dispatch(actions.setCurrPage(loadPage));
+                actions.setCurrPage(loadPage);
             }
         });
     }
@@ -106,39 +110,32 @@ class ListApp extends Component {
      * 切换tab执行的方法
      */
     changeTab() {
-        const {actions, dispatch} = this.props;
+        const {actions} = this.props;
         //清除列表
-        dispatch(actions.clearIndexList());
+        actions.clearIndexList();
     }
 
     /**
      * 在组件从 DOM 中移除的时候立刻被调用。
      */
     componentWillUnmount() {
-        const {actions, dispatch} = this.props;
+        const {actions} = this.props;
         //设置滚动条的位置，使返回的时候可以恢复
-        dispatch(actions.setScrollPos({
-            scrollX:window.scrollX,
-            scrollY:window.scrollY
-        }));
+        actions.setScrollPos({
+            scrollX: window.scrollX,
+            scrollY: window.scrollY
+        });
         window.removeEventListener('scroll', this.handleScroll);
     }
-    // test reducer run how many times for a single dispatched action
-    testFunc(){
-        const {actions, dispatch} = this.props;
-        dispatch(actions.testFunc());
-    }
-
     render() {
         let tab = this.props.location.query.tab || 'all';
-        const {list, loadState,loadFailed,msg} = this.props;
+        const {list, loadState, loadFailed, msg} = this.props;
         return (
             <div>
                 <Nav tab={tab}></Nav>
-                <input type="button" value="testBtn" onClick={()=>this.testFunc()}/>
                 <List list={list}></List>
                 <DataLoad loadingData={loadState} loadFailed={loadFailed} msg={msg}></DataLoad>
-                <Footer index="0" />
+                <Footer index="0"/>
             </div>
 
         );
@@ -154,8 +151,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({}, listAction, pageAction), dispatch),
-    dispatch: dispatch
+    actions: bindActionCreators(Object.assign({}, listAction, pageAction), dispatch)
 });
 module.exports = connect(mapStateToProps, mapDispatchToProps)(ListApp);
 ListApp.contextTypes = {

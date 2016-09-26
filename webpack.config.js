@@ -68,7 +68,6 @@ var config = {
         }]
     },
     resolve: {
-        extensions: ['', '.js', '.css', '.less'],
         alias: {
             js: path.join(__dirname, 'js'),
             style: path.join(__dirname, 'style')

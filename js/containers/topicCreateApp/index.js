@@ -16,9 +16,9 @@ class TopicCreateApp extends Component {
      * 页面初始化渲染完成之后执行加载数据
      */
     componentDidMount() {
-        const {actions,dispatch} = this.props;
-        dispatch(actions.clearIndexList());
-        dispatch(actions.setCurrPage(0));
+        const {actions} = this.props;
+        actions.clearIndexList();
+        actions.setCurrPage(0);
     }
     state = {
         title: '',
@@ -129,8 +129,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({},topicAction ,listAction,pageAction), dispatch),
-    dispatch: dispatch
+    actions: bindActionCreators(Object.assign({},topicAction ,listAction,pageAction), dispatch)
 });
 module.exports = connect(mapStateToProps, mapDispatchToProps)(TopicCreateApp);
 TopicCreateApp.contextTypes = {

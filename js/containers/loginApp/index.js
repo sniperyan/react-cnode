@@ -68,8 +68,7 @@ const mapStateToProps = state => {
     return {}
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({}, loginAction), dispatch),
-    dispatch: dispatch
+    actions: bindActionCreators(Object.assign({}, loginAction), dispatch)
 });
 module.exports =  connect(mapStateToProps, mapDispatchToProps)(LoginApp);
 LoginApp.contextTypes = {

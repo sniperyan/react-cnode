@@ -36,11 +36,6 @@ export function clearIndexList() {
     };
 }
 
-export function testFunc() {
-    return {
-        type: types.TEST_ACTION
-    };
-}
 
 
 

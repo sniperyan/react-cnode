@@ -28,7 +28,7 @@ class TopicApp extends Component {
      * @param isReload[bool]是否是重新加载，如果重新加载，就要滚动到指定位置
      */
     loadData(id, isReload) {
-        const {actions, dispatch} = this.props;
+        const {actions} = this.props;
         actions.getTopicDetail(id).then((success)=> {
             if (success) {
                 if (isReload) {
@@ -73,7 +73,7 @@ class TopicApp extends Component {
      * @param loginname
      */
     clickZan(id, index, loginname) {
-        var {topicDetail, dispatch, actions} = this.props;
+        var {topicDetail, actions} = this.props;
         var user = JSON.parse(Tool.localItem('User'));
         var accesstoken = user ? user.accesstoken : '';
         var uid = user ? user.id : '';
@@ -98,7 +98,7 @@ class TopicApp extends Component {
      * @param index
      */
     showReplyBox(index) {
-        var {topicDetail, dispatch, actions} = this.props;
+        var {topicDetail, actions} = this.props;
         var user = JSON.parse(Tool.localItem('User'));
         var accesstoken = user ? user.accesstoken : '';
         if (!accesstoken) {
@@ -106,17 +106,17 @@ class TopicApp extends Component {
         }
         --index;
         if (topicDetail.replies[index].display === 'block') {
-            dispatch(actions.setReplybox({
+            actions.setReplybox({
                 index: index,
                 display: 'none'
-            }));
+            });
             //this.props.state.data.replies[index].display = 'none';
         } else {
             //this.props.state.data.replies[index].display = 'block';
-            dispatch(actions.setReplybox({
+            actions.setReplybox({
                 index: index,
                 display: 'block'
-            }));
+            });
         }
 
     }
@@ -170,8 +170,7 @@ const mapStateToProps = state => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(Object.assign({}, topicAction), dispatch),
-    dispatch: dispatch
+    actions: bindActionCreators(Object.assign({}, topicAction), dispatch)
 });
 module.exports =  connect(mapStateToProps, mapDispatchToProps)(TopicApp);
 TopicApp.contextTypes = {

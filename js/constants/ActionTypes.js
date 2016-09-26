@@ -20,8 +20,6 @@ export const SET_USERINFO = 'SET_USERINFO';
 //设置消息内容
 export const SET_MESSAGE = 'SET_MESSAGE';
 
-// test reducer run how many times for a single dispatched action
-export const TEST_ACTION = 'TEST_ACTION';
 
 
 
