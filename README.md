@@ -42,6 +42,10 @@ container最后的导出语法必须为ES5 module.exports = connect(mapStateToPr
 ```
 ### 已打包安卓版本 cnode.apk
 我不会安卓代码，只给app签了个名,纯练手用，安卓打包比苹果复杂，环境不好配置
+
+## 运行效果
+![运行效果](./result-images/cnode-web.gif)
+
 ### 未完成部分
 ```
 1.react native版本
